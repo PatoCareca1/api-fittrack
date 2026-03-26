@@ -1,15 +1,36 @@
+# Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.egg-info/
-.eggs/
 dist/
 build/
-.env
+.eggs/
+
+# Virtual environments
 .venv/
 venv/
-*.pt
-*.pth
-*.onnx
+env/
+
+# Environment
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
 .pytest_cache/
-.ruff_cache/
-notebooks/.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Database
+*.db
+*.sqlite3
