@@ -81,6 +81,21 @@ uv run uvicorn app.main:app --reload
 
 ---
 
+## Migrações
+
+```bash
+# Aplicar todas as migrações
+uv run alembic upgrade head
+
+# Gerar nova migração após alterar modelos ORM
+uv run alembic revision --autogenerate -m "descrição"
+
+# Ver histórico
+uv run alembic history
+```
+
+---
+
 ## Endpoints
 
 ### Públicos
@@ -365,7 +380,7 @@ uv run black --check app/
 - [x] Schemas Pydantic centrais
 - [x] Módulo estimation completo (Navy, Deurenberg, BRI, ABSI, WHtR, RCQ)
 - [x] Stubs funcionais para pose, calibration, measurements
-- [ ] Migrações Alembic
+- [x] Migrações Alembic
 - [ ] Documentação teórica (`docs/teoria/`)
 
 ### Fase 2 — Refinamento

@@ -483,7 +483,7 @@ chore: configure ruff and black in pyproject.toml
 - [x] Módulo `measurements` — circunferências e razões antropométricas (stub funcional)
 - [x] Módulo `estimation` — Navy Method + Deurenberg + BRI + ABSI + WHtR + RCQ (completo)
 - [x] Endpoints REST: `POST /analyze`, `POST /auth/register`, `POST /auth/login`
-- [ ] Alembic — migrações do banco de dados
+- [x] Alembic — migrações do banco de dados
 - [ ] Documentação teórica paralela em `docs/teoria/`
 
 ### Fase 2 — Refinamento
@@ -521,6 +521,13 @@ Ao final de cada sessão:
 1. Atualizar este arquivo com decisões tomadas e progresso
 2. Gerar commit com todas as mudanças da sessão
 3. O commit final da sessão sempre inclui `docs: update CLAUDE.md`
+
+### 31/03/2026 - Configuração do Alembic
+- Alembic configurado com engine async
+- `alembic.ini` na raiz, `script_location = app/db/migrations`
+- `env.py` lê `settings.database_url`, importa Base e todos os modelos ORM
+- Migração inicial criada manualmente: tabelas `users` e `analyses`
+- Fase 1 concluída
 
 ---
 
@@ -586,3 +593,9 @@ incerteza em cadeia (landmark → calibração → medida → equação) é Fase
 A arquitetura já suporta evolução sem refatoração — campos `uncertainty` em
 `Measurement` e `lower_bound`/`upper_bound` em `Estimate` estão presentes.
 **Alternativa adiada:** propagação Gaussiana completa quando houver dados.
+
+### ADR-009 — Migração inicial criada manualmente
+
+**Decisão:** a migração inicial foi criada via `alembic revision` + conteúdo manual baseado nos modelos ORM, sem `--autogenerate`.
+**Motivo:** `--autogenerate` requer conexão ativa com o banco. Em ambiente de desenvolvimento sem PostgreSQL rodando, a migração manual é equivalente e garante rastreabilidade no git.
+**Consequência:** ao rodar `alembic upgrade head` pela primeira vez em ambiente com banco disponível, validar que as tabelas criadas batem com os modelos ORM.
